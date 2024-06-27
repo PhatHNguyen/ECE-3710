@@ -9,79 +9,106 @@ module stopLight (
     right,
     reset,
     harzard,
+    clk,
     output reg [5:0] status
 );
 
-paremeter Neutral = 6'b000000;
-paremeter L1 = 6'b001000; 
-paremeter L2 = 6'b011000; 
-paremeter L3 = 6'b111000; 
-paremeter R1 = 6'b000001; 
-paremeter R2 = 6'b000011; 
-paremeter R3 = 6'b000111; 
-paremeter Hazard = 6'b111111; 
+parameter Neutral = 6'b000000;
+parameter L1 = 6'b001000; 
+parameter L2 = 6'b011000; 
+parameter L3 = 6'b111000; 
+parameter R1 = 6'b000100; 
+parameter R2 = 6'b000110; 
+parameter R3 = 6'b000111; 
+parameter Hazard = 6'b111111; 
 reg [5:0] state;
 reg [5:0] next_state;
 
 
 always @(posedge clk) begin
     if(reset) begin
-        left <= 0;
-        right <= 0;
         state <= Neutral;
+		  next_state <= Neutral;
     end else if(harzard) begin
-        left <= 0;
-        right <= 0;
         state <= Hazard;
     end else begin 
         state <= next_state;
     end
 end 
 
-always @(posedge left, posedge right) begin
- if(left) begin 
-        right <= 0;
-        state <= L1;
-    end else if(right) begin
-        left <= 0;
-        state <= R1;
-    end 
-end
 
-always @(state) begin
+always @* begin
     case(state)
     Neutral: begin
-        next_state <= Neutral;
+         if(left) 
+            next_state = L1;
+        else if(right)
+            next_state = R1;
+        else
+            next_state = Neutral;
         status <=  6'b000000;
     end 
     L1: begin
-        next_state <= L2;
+	 if(left) 
+            next_state = L2;
+        else if(right)
+            next_state = R1;
+        else
+            next_state = Neutral;
         status <=  6'b001000;
     end
     L2: begin 
-        next_state <= L3;
+	 if(left) 
+            next_state = L3;
+        else if(right)
+            next_state = R1;
+        else
+            next_state = Neutral;
         status <=  6'b011000;
     end
     L3: begin 
-        next_state <= L1;
+	 if(left) 
+            next_state = L1;
+        else if(right)
+            next_state = R1;
+        else
+            next_state = Neutral;
         status <=  6'b111000;
     end
     R1: begin 
-        next_state <= R2;
-        status <=  6'b000001;
+	if(right) 
+            next_state = R2;
+        else if(left)
+            next_state = L1;
+        else
+            next_state = Neutral;
+        status <=  6'b000100;
     end
     R2: begin 
-        next_state <= R3;
-        status <=  6'b000011;
+	if(right) 
+            next_state = R3;
+        else if(left)
+            next_state = L1;
+        else
+            next_state = Neutral;
+        status <=  6'b000110;
     end
     R3: begin 
-        next_state <= R1;
+        if(right) 
+            next_state = R1;
+        else if(left)
+            next_state = L1;
+        else
+            next_state = Neutral;
         status <=  6'b000111;
     end
     Hazard: begin
+		  if(!harzard)
+				next_state <= Neutral;
+		  else
         next_state <= Hazard;
         status <=  6'b111111;
     end
-end 
-
+endcase 
+end
 endmodule
