@@ -77,3 +77,4 @@ module bitGenerator2
 		green <= 0;
 	end
 end	
+endmodule
