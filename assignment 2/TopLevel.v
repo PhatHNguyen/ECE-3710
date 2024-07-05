@@ -95,7 +95,27 @@ module TopLevel
 			.blue(blue1),
 			.green(green1)
 		);
-			
-	
-	
+		
+		clockDivider clk_Divider(
+			.clk(clk),
+			.slower_clk(FSM_clk)
+		);
+		
+		FSMTS Turn_Signal(
+			.buttons(buttons2),
+			.clk(FSM_clk),
+			.LED_status(LEDS),
+		);
+		
+		bitGenerator2 bitGen2(
+			.hcount(hcount),
+			.vcount(vcount),
+			.display_pixel(display_pixel),
+			.LEDS(LEDS),
+			.red(red2),
+			.blue(blue2),
+			.green(green2)
+		);
+	// ****************************************	
+endmodule
 	
