@@ -1,13 +1,13 @@
-modules VGA_control
+module VGA_control
 	(
-		input clk,
+		input 		clk,
 				clear,
 				
-		output reg	hsync,
-						vsync,
-				[9:0] hcount,
-				[9:0] vcount,
-				      display_pixel
+		output reg      hsync,
+				vsync,
+		         [9:0] hcount,
+			 [9:0] vcount,
+     		         display_pixel
 	 );
 	 
 	 always@(posedge clk) begin 
