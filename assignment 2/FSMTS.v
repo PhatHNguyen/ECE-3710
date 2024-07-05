@@ -1,6 +1,6 @@
 module FSMTS ( 
 	input [3:0] buttons,
-					clk,
+		        clk,
    output reg [5:0] LED_status
  );
  
@@ -24,14 +24,14 @@ reg [5:0] next_state;
 
 // Next state prediction 
 always @* begin
-    case(button)
+    case(buttons)
 	 
     reset: begin
         next_state <=  Neutral;
     end 
 	 
 	 hazard: begin 
-		 next_state <= (current_state == Neutral) Hazard : Neutral;
+		 next_state <= (current_state == Neutral) ? Hazard : Neutral;
 	 end
 	 
 	 left: begin 
@@ -39,7 +39,7 @@ always @* begin
 			next_state <= L2;
 		else if(current_state == L2)
 			next_state <= L3;
-		else if(current_state == L3);
+		else if(current_state == L3)
 			next_state <= Neutral;
 		else 
 			next_state <= L1;
@@ -50,7 +50,7 @@ always @* begin
 			next_state <= R2;
 		else if(current_state == R2)
 			next_state <= R3;
-		else if(current_state == R3);
+		else if(current_state == R3)
 			next_state <= Neutral;
 		else 
 			next_state <= R1;
@@ -61,16 +61,16 @@ always @* begin
 			next_state <= L2;
 		else if(current_state == L2)
 			next_state <= L3;
-		else if(current_state == L3);
+		else if(current_state == L3)
 			next_state <= Neutral;
 		else if(current_state == R1)
 			next_state <= R2;
 		else if(current_state == R2)
 			next_state <= R3;
-		else if(current_state == R3);
+		else if(current_state == R3)
 			next_state <= Neutral;
 		else 
-			next_state <= Neutral
+			next_state <= Neutral;
 	end
 endcase 
 end
@@ -92,28 +92,28 @@ always@(current_state) begin
 	case(current_state) 
 	
 	Neutral: begin
-		LEDS_status <= 6'b000000;
+		LED_status <= 6'b000000;
 	end 
 	L1: begin
-		LEDS_status <= 6'b001000;
+		LED_status <= 6'b001000;
 	end 
 	L2: begin
-		LEDS_status <= 6'b011000;
+		LED_status <= 6'b011000;
 	end 
 	L3: begin
-		LEDS_status <= 6'b111000;
+		LED_status <= 6'b111000;
 	end 
 	R1: begin
-		LEDS_status <= 6'b000100;
+		LED_status <= 6'b000100;
 	end 
 	R2: begin
-		LEDS_status <= 6'b000110;
+		LED_status <= 6'b000110;
 	end 
 	R3: begin
-		LEDS_status <= 6'b000111;
+		LED_status <= 6'b000111;
 	end 
 	Hazard: begin
-		LEDS_status <= 6'b111111;
+		LED_status <= 6'b111111;
 	end 
 	endcase 
 end
