@@ -1,20 +1,19 @@
 module TopLevel
 	(
-		input power
-	      	clk,
+		input power,
+	      	      clk,
 		[2:0] switches1,
 		[3:0] buttons2,
       		bitGenSelector,
 				
 		output reg VGA_Hsync,
-					  VGA_Vsync,
-					  VGA_clk,
-					  VGA_Display,
-			  [5:0]VGA_LED,
-		
-			  [7:0] VGA_Red,
-			  [7:0] VGA_Blue,
-			  [7:0] VGA_Green
+			   VGA_Vsync,
+			     VGA_clk,
+			  VGA_Display,
+			[5:0] VGA_LED,
+			[7:0] VGA_Red,
+			[7:0] VGA_Blue,
+			[7:0] VGA_Green
 	);
 	
 	reg slower_clk = 0;
@@ -23,11 +22,11 @@ module TopLevel
 	wire [7:0] blue1;
 	wire [7:0] green1;
 	
-	wire 		  FSM_clk; 
+	wire       FSM_clk; 
 	wire [7:0] red2;
 	wire [7:0] blue2;
 	wire [7:0] green2;
-	wire [5:0] LEDs
+	wire [5:0] LEDS;
 	
 	wire Hsync;
 	wire Vsync;
@@ -45,7 +44,7 @@ module TopLevel
 			slower_clk <= 0;
 		else 
 			slower_clk <= ~slower_clk;
-	
+	end
 	// ****************************************
 	
 	
@@ -67,7 +66,7 @@ module TopLevel
 			VGA_LED <= 6'b000000;
 		end
 		
-		if(display_pixel) begin
+		if(display_pixels) begin
 			VGA_Display <= 1;
 		end else begin 
 			VGA_Display <= 0;
@@ -90,7 +89,7 @@ module TopLevel
 			.switches(swithces),
 			.hcount(hcount),
 			.vcount(vcount),
-			.display_pixel(display_pixel),
+			.display_pixel(display_pixels),
 			.red(red1),
 			.blue(blue1),
 			.green(green1)
@@ -104,7 +103,7 @@ module TopLevel
 		FSMTS Turn_Signal(
 			.buttons(buttons2),
 			.clk(FSM_clk),
-			.LED_status(LEDS),
+			.LED_status(LEDS)
 		);
 		
 		bitGenerator2 bitGen2(
