@@ -1,23 +1,23 @@
-module VGA_control
+ module VGA_control
 	(
 		input 		clk,
-				clear,
+			        clear,
 				
 		output reg      hsync,
 				vsync,
-		         [9:0] hcount,
-			 [9:0] vcount,
-     		         display_pixel
+		         [9:0] vcount,
+			 [9:0] hcount,
+
+	     	output reg  display_pixel
 	 );
-	 
-	 always@(posedge clk) begin 
-		if(clear) begin
-			hcount <= 0;
-			vcount <= 0;
-		end
-		
-		// in H front porch
-		if(hcount < 96) begin
+
+    always @(posedge clk) begin
+        if (clear) begin
+            hcount <= 0;
+            vcount <= 0;
+        end else begin
+            // Increment hcount and handle display logic based on hcount and vcount
+            if(hcount < 96) begin
 			if(vcount >= 496)
 				vcount <= 0;
 				
@@ -25,7 +25,6 @@ module VGA_control
 			hcount <= hcount + 1;
 			display_pixel <= 0;
 		end
-		
 		//in H back porch
 		else if(hcount < 144) begin 
 			hcount <= hcount + 1;
@@ -33,8 +32,6 @@ module VGA_control
 			hsync <= 0;
 			display_pixel <= 0;
 		end 
-		
-		//in active area (display)
 		else if(hcount < 784) begin 
 			hcount <= hcount + 1;
 			
@@ -52,12 +49,14 @@ module VGA_control
 			end
 			display_pixel <= 0;
 		end 
-		
-		//new column
-		if(vcount < 1) begin
-			vsync <= 1;
-		end else begin
-		   vsync <= 0;
-		end
-	 end
-endmodule    
+        end
+        
+        // Generate vsync signal based on vcount
+        if (vcount < 1) begin
+            vsync <= 1;
+        end else begin
+            vsync <= 0;
+        end
+    end
+
+endmodule
