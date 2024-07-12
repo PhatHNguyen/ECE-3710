@@ -1,3 +1,7 @@
+/*
+The clockDivider module inputs a fast clock and outputs 25 MHZ clk by
+using a counter that will invert the input.
+*/
 module ClockDivider (
 	input 	   clk, 
 	output reg slower_clk	
