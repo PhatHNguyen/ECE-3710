@@ -2,8 +2,8 @@ module bitGenerator2
  (
 	input [9:0] hcount,
 			[9:0] vcount,
-					display_pixel,
-			[5:0] LEDS,		
+	input			display_pixel,
+	input	[5:0] LEDS,		
 					
 	output reg [7:0] red,
 				  [7:0] blue,
