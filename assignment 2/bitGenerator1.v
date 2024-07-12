@@ -3,7 +3,7 @@ module bitGenerator1
 	input [2:0] switches,
 			[9:0] hcount,
 			[9:0] vcount,
-			display_pixel,
+	input display_pixel,
 					
 	output reg [7:0] red,
 		  [7:0] blue,
@@ -17,7 +17,7 @@ module bitGenerator1
  parameter Yellow   = 3'b011;
  parameter Pink     = 3'b101;
  parameter White    = 3'b110;
- parameter Black    = 3'b000;
+ parameter Black    = 3'b111;
  
 always@(*) begin
 	
