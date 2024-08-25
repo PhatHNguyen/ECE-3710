@@ -1,8 +1,15 @@
+/* File Name: tb_ThunderBirdSignal.v
+* Author:  Phat Nguyen
+* Create Date:    8/20/2024
+* Purpose: test ThunderBiedSignal.v for correctness
+* ECE 3710
+*/
 module tb_stopLight();
-reg left,right,harzard,reset,clk;
+
+reg left,right,harzard,reset,clk,enable;
 wire [5:0] status;
 
-
+//instanstiate ThunderBirdSingal
 stopLight UUT (
 	.left(left),
 	.right(right),
@@ -12,12 +19,13 @@ stopLight UUT (
 	.status(status)
 );
 
-
+// Toggle clk every 5 ns 
  initial begin
    	clk = 0;
    	forever #5 clk = ~clk;
     end
 
+// Simulate the following tasks for functionality 
 initial begin 
 turnleft;
 turnright;
@@ -26,6 +34,7 @@ turnsignal_interuption;
 end 
 
 
+// simulate left turn signal (checking for complete sequence)
 task turnleft;
    begin   
 	reset = 1;
@@ -39,7 +48,7 @@ reset = 1;
 end
 endtask
 
-
+// simulate right turn signal (checking for complete sequence)
 task turnright;
  begin 
 left = 0;
@@ -51,6 +60,7 @@ reset = 1;
 end
 endtask
 
+// simulate hazard signal (checking for alternation between [000000] and [111111])
 task harzardcheck;
  begin
 left = 0;
@@ -62,6 +72,7 @@ reset = 1;
 end
 endtask
 
+// simulate hazard assertion during a left/right turn signal sequence 
 task turnsignal_interuption;
  begin  
 left = 1;
