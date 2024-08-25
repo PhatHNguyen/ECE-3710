@@ -1,0 +1,42 @@
+```
+Author:     Phat Nguyen
+Course:     ECE 3710 
+Date:       08-24-2024  
+Project:    ThunderBird Signal 
+```
+
+# Overview of the ThunderBird Signal
+
+The finite state machine (FSM) control vehicle turn signals as the user can input a left, right, or harzard singal. When activated, the FSM will 
+turn on certain LEDS to simulate a left turn, right turn, or hazard signal.
+
+# Files that are included 
+
+THe folllowing files that will be included in my submission are:
+1. README.md
+2. Finite State machine diagaram.pdf
+3. ThunderBirdSignal.v
+4. tb_ThunderBirdSignal.v
+5. SimulationResult.pdf
+
+# Results
+
+When running the simulation, I have tested left turn, right turn, hazard, and turn signal interuption(hazard assert) cases. 
+As a result, My fsm was able to produce the correct result when inputing a varitety of cases as shown in SimulationResult.pdf.
+Creating test bench, I would insert individual inputs, wait 10 full cycles, and check the waveform to see if my fsm would repeat
+sequences like the left,right, and hazard sequence. By doing so, the result from the simulation show that the fsm does complete a full
+sequence and would repeat again until the input has been deasserted. As for turn signal interuption, I asserted a left turn signal for 20 full 
+clk cycle. At the 10th cycle, I deaserted the left and activated the right input. By doing so, the fsm continue the left signal until after has 
+reached to stage L3. Going to the right turn singal sequence, I asserted the hazard signal mid way. This resulted the in the fsm to go back 
+and forth between the hazard and Neutral stage to turn all LEDS off and on alternately.
+
+
+# Problems encoountered
+
+Using Questa to simulate, I struggle with the timing of my inputs. Sometimes my inputs would activate on the falling edge which would lead to 
+the fsm to produce incorrect result. To fix, I replaced all command that uses "# number;" with "repeat(#) @(posedge clk);". This made it easier
+to understand my testbench but also ensure that my inputs activates on the rising edge. I would also like to point out that I used
+break point in the simulation in order to find when my fsm produce incorrect result.  Morever, I struggled sending my verilog code to the 
+FPGA due to the ethernet blaster not being recongized by the computer. With that, I had to spend hours reseting the FPGA, repluggin the blaster multiple tiems, and 
+making sure the computer reconginze it. After playing with the computer setting, i was able to send my code to the FPGA. 
+
