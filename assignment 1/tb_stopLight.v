@@ -1,21 +1,23 @@
-/* File Name: tb_ThunderBirdSignal.v
+/*
+* File Name: tb_ThunderBirdSignal.v
 * Author:  Phat Nguyen
 * Create Date:    8/20/2024
 * Purpose: test ThunderBiedSignal.v for correctness
 * ECE 3710
 */
-module tb_stopLight();
+module tb_ThunderBirdSignal();
 
-reg left,right,harzard,reset,clk,enable;
+reg left,right,hazard,reset,clk,enable;
 wire [5:0] status;
 
 //instanstiate ThunderBirdSingal
-stopLight UUT (
+ThunderBirdSignal UUT (
 	.left(left),
 	.right(right),
 	.reset(reset),
-	.harzard(harzard),
+	.hazard(hazard),
 	.clk(clk),
+	.enable(enable),
 	.status(status)
 );
 
@@ -27,6 +29,7 @@ stopLight UUT (
 
 // Simulate the following tasks for functionality 
 initial begin 
+
 turnleft;
 turnright;
 harzardcheck;
@@ -38,11 +41,16 @@ end
 task turnleft;
    begin   
 	reset = 1;
+	left = 0;
+	right = 0;
+	hazard = 0;
+	enable = 0;
 	repeat(10) @(posedge clk);
+    enable = 1;
     left = 1;
     right = 0;
     reset = 0;
-    harzard = 0;
+    hazard = 0;
  repeat(35) @(posedge clk);
 reset = 1;
 end
@@ -54,7 +62,7 @@ task turnright;
 left = 0;
 right = 1;
 reset = 0;
-harzard = 0;
+hazard = 0;
  repeat(35) @(posedge clk);
 reset = 1;
 end
@@ -66,7 +74,7 @@ task harzardcheck;
 left = 0;
 right = 0;
 reset = 0;
-harzard = 1;
+hazard = 1;
  repeat(35) @(posedge clk);
 reset = 1;
 end
@@ -78,13 +86,13 @@ task turnsignal_interuption;
 left = 1;
 right = 0;
 reset = 0;
-harzard = 0;
+hazard = 0;
  repeat(10) @(posedge clk);
 right = 1;
  repeat(25) @(posedge clk);
 left = 1;
  repeat(10) @(posedge clk);
-harzard = 1;
+hazard = 1;
  repeat(10) @(posedge clk);
 reset = 1;
 end
