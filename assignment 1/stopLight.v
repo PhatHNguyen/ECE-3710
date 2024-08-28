@@ -4,11 +4,11 @@
 * Purpose: Allow user to signal left,right, and hazard sign
 * ECE 3710 ThunderBird Signal
 */
-module stopLight (
+module ThunderBirdSignal (
     input left, 
     right,
     reset,
-    harzard,
+    hazard,
     clk,
     enable,
     output reg [5:0] status
@@ -24,7 +24,7 @@ parameter R2 = 6'b000110;  // right turn signal stage 2
 parameter R3 = 6'b000111;  // right turn signal stage 3
 parameter Hazard = 6'b111111; // Hazard singal 
 
-reg [5:0] curent_state;
+reg [5:0] current_state;
 reg [5:0] next_state;
 
 // update current_state 
@@ -37,87 +37,85 @@ always @(posedge clk) begin
 end 
 
 // FSM: update the next_state and set the status LED to a specific result depending on the current_state
-always @(current_state) begin
+always @(*) begin
     case(current_state)
 
      // NO LEDS is active, waits for an input 
      Neutral: begin
-	if (Hazard)
-	   next_state = Hazard;
+	if (hazard)
+	   next_state <= Hazard;
 	else if (left) 
-            next_state = L1;
+            next_state <= L1;
         else if (right)
-            next_state = R1;
+            next_state <= R1;
         else
-            next_state = Neutral;
+            next_state <= Neutral;
         status <=  6'b000000;
     end 
 
     // Activate the first left signal     
     L1: begin
 	if (hazard) 
-            next_state = Hazard;
+            next_state <= Hazard;
         else
-            next_state = L2;
+            next_state <= L2;
         status <=  6'b001000;
     end
 
    // Activate the second left signal     
     L2: begin 
 	if (hazard) 
-            next_state = Hazard;
+            next_state <= Hazard;
         else
-            next_state = L3;
+            next_state <= L3;
         status <=  6'b011000;
     end
 
     // Activate the last left signal  (all 3 left signal )      
     L3: begin 
 	if (hazard)
-	    next_state = Hazard;	
+	    next_state <= Hazard;	
 	else if (left) 
-            next_state = L1;
+            next_state <= L1;
         else if (right)
-            next_state = R1;
+            next_state <= R1;
         else
-            next_state = Neutral;
+            next_state <= Neutral;
         status <=  6'b111000;
     end
 
     // Activate the first right signal     
     R1: begin 
 	if (hazard) 
-            next_state = Hazard;
+            next_state <= Hazard;
         else
-            next_state = R2;
+            next_state <= R2;
         status <=  6'b000100;
     end
 
     // Activate the second right signal     
     R2: begin 
 	if (hazard) 
-            next_state = Hazard;
+            next_state <= Hazard;
         else
-            next_state = R3;
+            next_state <= R3;
         status <=  6'b000110;
     end
 
     // Activate the last right signal (all 3 right signal )       
     R3: begin 
         if (right) 
-            next_state = R1;
+            next_state <= R1;
         else if (left)
-            next_state = L1;
+            next_state <= L1;
         else
-            next_state = Neutral;
+            next_state <= Neutral;
         status <=  6'b000111;
     end
 
     // Activate all LEDS     
     Hazard: begin
-	next_state = Neutral;
+	next_state <= Neutral;
         status <=  6'b111111;
     end
 endcase 
-end
-endmodule
