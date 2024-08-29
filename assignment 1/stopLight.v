@@ -29,7 +29,7 @@ reg [5:0] next_state;
 
 // update current_state 
 always @(posedge clk) begin
-    if(reset) begin
+	if(~reset) begin
         current_state <= Neutral;
     end else if(enable) begin 
         current_state <= next_state;
@@ -42,11 +42,11 @@ always @(*) begin
 
      // NO LEDS is active, waits for an input 
      Neutral: begin
-	if (hazard)
+	 if (~hazard)
 	   next_state <= Hazard;
-	else if (left) 
+	 else if (~left) 
             next_state <= L1;
-        else if (right)
+	 else if (~right)
             next_state <= R1;
         else
             next_state <= Neutral;
@@ -55,7 +55,7 @@ always @(*) begin
 
     // Activate the first left signal     
     L1: begin
-	if (hazard) 
+	if (~hazard) 
             next_state <= Hazard;
         else
             next_state <= L2;
@@ -64,7 +64,7 @@ always @(*) begin
 
    // Activate the second left signal     
     L2: begin 
-	if (hazard) 
+	  if (~hazard) 
             next_state <= Hazard;
         else
             next_state <= L3;
@@ -73,11 +73,11 @@ always @(*) begin
 
     // Activate the last left signal  (all 3 left signal )      
     L3: begin 
-	if (hazard)
+	 if (~hazard)
 	    next_state <= Hazard;	
-	else if (left) 
+	 else if (~left) 
             next_state <= L1;
-        else if (right)
+	else if (~right)
             next_state <= R1;
         else
             next_state <= Neutral;
@@ -86,7 +86,7 @@ always @(*) begin
 
     // Activate the first right signal     
     R1: begin 
-	if (hazard) 
+	 if (~hazard) 
             next_state <= Hazard;
         else
             next_state <= R2;
@@ -95,7 +95,7 @@ always @(*) begin
 
     // Activate the second right signal     
     R2: begin 
-	if (hazard) 
+	if (~hazard) 
             next_state <= Hazard;
         else
             next_state <= R3;
@@ -104,9 +104,11 @@ always @(*) begin
 
     // Activate the last right signal (all 3 right signal )       
     R3: begin 
-        if (right) 
+	if (~hazard)
+	   next_state <= Hazard
+	else if (~right) 
             next_state <= R1;
-        else if (left)
+        else if (~left)
             next_state <= L1;
         else
             next_state <= Neutral;
