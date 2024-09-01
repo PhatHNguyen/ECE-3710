@@ -37,6 +37,7 @@ always @(posedge clk) begin
 end 
 
 // FSM: update the next_state and set the status LED to a specific result depending on the current_state
+// Note: is hazard has been pressed, go to the hazard state next clk cycle
 always @(*) begin
     case(current_state)
 
@@ -53,7 +54,7 @@ always @(*) begin
         status <=  6'b000000;
     end 
 
-    // Activate the first left signal     
+    // Activate the first left signal (first left light is on)     
     L1: begin
 	if (~hazard) 
             next_state <= Hazard;
@@ -62,7 +63,7 @@ always @(*) begin
         status <=  6'b001000;
     end
 
-   // Activate the second left signal     
+    // Activate the second left signal (first and second left light is on)   
     L2: begin 
 	if (!hazard) 
             next_state <= Hazard;
@@ -84,7 +85,7 @@ always @(*) begin
         status <=  6'b111000;
     end
 
-    // Activate the first right signal     
+    // Activate the first right signal (first right light is on)    
     R1: begin 
 	if (!hazard) 
             next_state <= Hazard;
@@ -93,7 +94,7 @@ always @(*) begin
         status <=  6'b000100;
     end
 
-    // Activate the second right signal     
+    // Activate the second right signal (first and second right light is on)     
     R2: begin 
 	if (!hazard) 
             next_state <= Hazard;
