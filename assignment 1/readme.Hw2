@@ -32,11 +32,15 @@ and forth between the hazard and Neutral stage to turn all LEDS off and on alter
 
 
 # Problems encoountered
+Using Questa to simulate, I struggled with the timing of my inputs. Sometimes, my inputs would activate on the falling edge, which caused the
+FSM to produce incorrect results. To fix this issue, I replaced all commands that used "# number;" with "repeat(#) @(posedge clk);". This change
+not only made it easier to understand my testbench but also ensured that my inputs activated on the rising edge since the repeat syntax occurs on
+the rising edge. Additionally, using repeat made the testbench easier to read, as I could think of it in terms of cycles rather than time.
+I would like to point out that I used breakpoints in the simulation to identify when my FSM produced incorrect results. I also encountered
+difficulties sending my Verilog code to the FPGA because the Ethernet blaster was not recognized by the computer. I had to spend hours resetting
+the FPGA, replugging the blaster multiple times, and ensuring the computer recognized it. Eventually, after adjusting the computer settings,
+I was able to send my code to the FPGA.
 
-Using Questa to simulate, I struggle with the timing of my inputs. Sometimes my inputs would activate on the falling edge which would lead to 
-the fsm to produce incorrect result. To fix, I replaced all command that uses "# number;" with "repeat(#) @(posedge clk);". This made it easier
-to understand my testbench but also ensure that my inputs activates on the rising edge. I would also like to point out that I used
-break point in the simulation in order to find when my fsm produce incorrect result.  Morever, I struggled sending my verilog code to the 
-FPGA due to the ethernet blaster not being recongized by the computer. With that, I had to spend hours reseting the FPGA, repluggin the blaster multiple tiems, and 
-making sure the computer reconginze it. After playing with the computer setting, i was able to send my code to the FPGA. 
 
+# NOTE: 
+I used CHATGPT to improve my writing by checking grammar, spelling, and flow of sentences.
