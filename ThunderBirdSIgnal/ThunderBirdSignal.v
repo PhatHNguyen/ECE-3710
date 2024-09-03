@@ -105,7 +105,9 @@ always @(*) begin
 
     // Activate the last right signal (all 3 right signal )       
     R3: begin 
-        if (!right) 
+	if (!hazard)
+	    next_state <= Hazard;
+        else if (!right) 
             next_state <= R1;
         else if (!left)
             next_state <= L1;
