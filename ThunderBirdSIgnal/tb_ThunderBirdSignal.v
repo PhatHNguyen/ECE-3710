@@ -40,19 +40,19 @@ end
 // simulate left turn signal (checking for complete sequence)
 task turnleft;
    begin   
-	reset = 0;
-	left = 1;
-	right = 1;
-	hazard = 1;
-	enable = 1;
-	repeat(10) @(posedge clk);
+    reset = 0;
+    left = 1;
+    right = 1;
+    hazard = 1;
+    enable = 0;
+    repeat(5) @(posedge clk);
     enable = 1;
     left = 0;
     right = 1;
     reset = 1;
     hazard = 1;
- repeat(35) @(posedge clk);
-reset = 1;
+ repeat(5) @(posedge clk);
+reset = 0;
 end
 endtask
 
@@ -63,19 +63,19 @@ left = 1;
 right = 0;
 reset = 1;
 hazard = 1;
- repeat(35) @(posedge clk);
-reset = 1;
+ repeat(8) @(posedge clk);
+reset = 0;
 end
 endtask
 
 // simulate hazard signal (checking for alternation between [000000] and [111111])
 task harzardcheck;
- begin
+begin
 left = 1;
 right = 1;
 reset = 1;
 hazard = 0;
- repeat(35) @(posedge clk);
+ repeat(5) @(posedge clk);
 reset = 0;
 end
 endtask
@@ -87,11 +87,11 @@ left = 0;
 right = 1;
 reset = 1;
 hazard = 1;
- repeat(10) @(posedge clk);
+ repeat(4) @(posedge clk);
 right = 0;
- repeat(25) @(posedge clk);
+ repeat(2) @(posedge clk);
 left = 0;
- repeat(10) @(posedge clk);
+ repeat(2) @(posedge clk);
 hazard = 0;
  repeat(10) @(posedge clk);
 reset = 0;
