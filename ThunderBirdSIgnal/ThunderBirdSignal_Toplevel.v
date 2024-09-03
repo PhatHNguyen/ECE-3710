@@ -1,3 +1,9 @@
+/* File Name: ThunderBirdSignal_Toplevel.v
+* Author:  Phat Nguyen
+* Create Date:    8/20/2024
+* Purpose: use for instantiate all modules to develop a ThunderBird Signal
+* ECE 3710 ThunderBird Signal
+*/
 module ThunderBirdSignal_Toplevel(
 input clk,
     reset,
@@ -10,8 +16,9 @@ input clk,
 wire enable;
 wire [5:0] status;
 
+// instantiate clock divider, Turn signal, and displayment
 Clock_div Clock_Divider(.clk(clk),.reset(reset),.slower_clk(enable));
 ThunderBirdSignal TurnSignal(.left(left),.right(right),.reset(reset),.hazard(hazard),.clk(clk),.enable(enable),.status(status));
-SevenHEXSeg(.hex_input(status),seven_seg(seven_seg));
+SevenHEXSeg Displayment(.hex_input(status),seven_seg(seven_seg));
 
 endmodule
