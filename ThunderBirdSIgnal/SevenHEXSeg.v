@@ -1,3 +1,9 @@
+/* File Name: SevenHEXSeg.v
+* Author:  Phat Nguyen
+* Create Date:    8/20/2024
+* Purpose: use for displaying on the FPGA
+* ECE 3710 ThunderBird Signal
+*/
 module SevenHEXSeg(input wire [5:0] hex_input, output reg [15:0] seven_seg);
 always @(hex_input)
 begin
