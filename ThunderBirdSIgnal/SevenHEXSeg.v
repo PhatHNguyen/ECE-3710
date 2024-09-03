@@ -1,24 +1,16 @@
-module SevenHEXSeg(input wire [3:0] hex_input, output reg [6:0] seven_seg);
+module SevenHEXSeg(input wire [5:0] hex_input, output reg [15:0] seven_seg);
 always @(hex_input)
 begin
 case (hex_input)
-4'h0 : begin seven_seg = ~7'b0111111; end
-4'h1 : begin seven_seg = ~7'b0110000; end
-4'h2 : begin seven_seg = ~7'b1011011; end
-4'h3 : begin seven_seg = ~7'b1001111; end
-4'h4 : begin seven_seg = ~7'b1100110; end
-4'h5 : begin seven_seg = ~7'b1101101; end
-4'h6 : begin seven_seg = ~7'b1111101; end
-4'h7 : begin seven_seg = ~7'b0000111; end
-4'h8 : begin seven_seg = ~7'b1111111; end
-4'h9 : begin seven_seg = ~7'b1100111; end
-4'ha : begin seven_seg = ~7'b0110111; end
-4'hb : begin seven_seg = ~7'b1111100; end
-4'hc : begin seven_seg = ~7'b0111001; end
-4'hd : begin seven_seg = ~7'b1011110; end
-4'he : begin seven_seg = ~7'b1111001; end
-4'hf : begin seven_seg = ~7'b1110001; end
-default : begin seven_seg = ~7'b0000000; end
+6'b000000 : begin seven_seg = 16'b0000000000000000; end
+6'b001000 : begin seven_seg = 16'b0010000001000000; end
+6'b011000 : begin seven_seg = 16'b0011000011000000; end
+6'b111000 : begin seven_seg = 16'b0011111111000000; end
+6'b000100 : begin seven_seg = 16'b0100000000100000; end
+6'b000110 : begin seven_seg = 16'b1100000000110000; end
+6'b000111 : begin seven_seg = 16'b1100000000111111; end
+6'b111111 : begin seven_seg = 16'b1111111111111111; end
+default : begin seven_seg = 16'b0000000000000000; end
 endcase
 end
 endmodule
