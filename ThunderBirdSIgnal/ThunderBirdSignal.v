@@ -1,4 +1,4 @@
-/* File Name:  stopLight.v
+/* File Name:  ThunderBirdSignal.v
 * Author:  Phat Nguyen
 * Create Date:    8/20/2024
 * Purpose: Allow user to signal left,right, and hazard sign
