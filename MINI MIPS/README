@@ -1,0 +1,38 @@
+```
+Author:     Phat Nguyen
+Course:     ECE 3710 
+Date:       09-08-2024  
+Project:    MINI MiPS
+```
+
+# Overview of the ThunderBird Signal
+
+The Mini MIPS perform a variety of instruction compute fabniachi numbers up to the 13th number and stores them in memory
+
+# Files that are included 
+
+THe folllowing files that will be included in my submission are:
+1. README.md
+2. Finite State machine diagaram.pdf
+3. ThunderBirdSignal.v
+4. tb_ThunderBirdSignal.v
+5. SimulationResult.pdf
+
+# Results
+
+When running the simulation, I have tested the ADDI instruction by computing the 8th fabinachi number and checking the value in address 255. Once confirmed,
+I then proceed to create my own fabinachi procedure that would allow me to compute up to the 13th fabinachi number and store them in memory. With that, I developed
+a test bench that allow me to put the register address and then outputs the value in those register. I would tests all of the fabinachi numbers to check
+for functionality. Once verified, I have sucessfully completed the simulation and then move forward to the FPGA.
+
+
+# Problems encoountered
+Using Questa, I struggled with the memory as I have never used the RAM of the FPGA. Using the debug functionality as well as assistence from the professor,
+I was able to figure out to create a testbench that checks each of the value in a specified address. From there, I was able to complete the first part of the
+assignment which is checking if the modify mipscpu.v is able to compute the ADDI instruction. Moving on, I continue to struggle with the memory I/O due to 
+a lack of knowledge. With that, I reread the book as well as ran and debug a simple input to see how the other modules interact with eachother. With that, I was able 
+to have a better understanding of the data path and the ALU. 
+
+
+# NOTE: 
+I used CHATGPT to improve my writing by checking grammar, spelling, and flow of sentences.
