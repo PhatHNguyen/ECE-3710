@@ -43,6 +43,7 @@ always @(*) begin
 
      // NO LEDS is active, waits for an input 
      Neutral: begin
+	// presss any of the inputs will go to a specific stage
 	if (!hazard)
 	   next_state <= Hazard;
 	else if (!left) 
@@ -56,6 +57,7 @@ always @(*) begin
 
     // Activate the first left signal (first left light is on)     
     L1: begin
+	// presss hazard, go to hazard stage else continue the left stage
 	if (~hazard) 
             next_state <= Hazard;
         else
@@ -65,6 +67,7 @@ always @(*) begin
 
     // Activate the second left signal (first and second left light is on)   
     L2: begin 
+	// presss hazard, go to hazard stage else continue the left stage
 	if (!hazard) 
             next_state <= Hazard;
         else
@@ -74,6 +77,7 @@ always @(*) begin
 
     // Activate the last left signal  (all 3 left signal )      
     L3: begin 
+	// presss any of the inputs will go to a specific stage
 	if (!hazard)
 	    next_state <= Hazard;	
 	else if (!left) 
@@ -87,6 +91,7 @@ always @(*) begin
 
     // Activate the first right signal (first right light is on)    
     R1: begin 
+	// presss hazard, go to hazard stage else continue the right stage
 	if (!hazard) 
             next_state <= Hazard;
         else
@@ -96,6 +101,7 @@ always @(*) begin
 
     // Activate the second right signal (first and second right light is on)     
     R2: begin 
+	// presss hazard, go to hazard stage else continue the right stage
 	if (!hazard) 
             next_state <= Hazard;
         else
@@ -105,6 +111,7 @@ always @(*) begin
 
     // Activate the last right signal (all 3 right signal )       
     R3: begin 
+	// presss any of the inputs will go to a specific stage
 	if (!hazard)
 	    next_state <= Hazard;
         else if (!right) 
