@@ -17,7 +17,8 @@ THe folllowing files that will be included in my submission are:
 2. Finite State machine diagaram.pdf
 3. ThunderBirdSignal.v
 4. tb_ThunderBirdSignal.v
-5. SimulationResult.pdf
+5. Clock_div.v
+6. SimulationResult.pdf
 
 # Results
 
