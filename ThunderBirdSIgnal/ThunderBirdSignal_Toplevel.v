@@ -10,7 +10,7 @@ input clk,
      left,
     right,
     hazard,
-    output wire [15:0] seven_seg
+    output wire [15:0] sixteen_seg
 );
 
 wire enable;
@@ -19,6 +19,6 @@ wire [5:0] status;
 // instantiate clock divider, Turn signal, and displayment
 Clock_div Clock_Divider(.clk(clk),.reset(reset),.slower_clk(enable));
 ThunderBirdSignal TurnSignal(.left(left),.right(right),.reset(reset),.hazard(hazard),.clk(clk),.enable(enable),.status(status));
-SevenHEXSeg Displayment(.hex_input(status),seven_seg(seven_seg));
+SixteenHEXSeg Displayment(.hex_input(status),sixteen_seg(sixteen_seg));
 
 endmodule
