@@ -128,6 +128,11 @@ always @(*) begin
 	next_state <= Neutral;
         status <=  6'b111111;
     end
+   // should never occur
+  default: begin
+            next_state = Neutral; 
+            status = 6'b000000;
+        end
 endcase 
 end
 
