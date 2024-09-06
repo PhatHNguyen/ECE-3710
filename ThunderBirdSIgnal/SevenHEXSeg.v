@@ -1,4 +1,4 @@
-/* File Name: SevenHEXSeg.v
+/* File Name: SixteenHEXSeg.v
 * Author:  Phat Nguyen
 * Create Date:    8/20/2024
 * Purpose: use for displaying on the FPGA
