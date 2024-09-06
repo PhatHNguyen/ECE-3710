@@ -25,7 +25,7 @@ parameter R3 = 6'b000111;  // right turn signal stage 3
 parameter Hazard = 6'b111111; // Hazard singal 
 
 reg [5:0] current_state = Neutral;
-reg [5:0] next_state;
+reg [5:0] next_state = Neutral;
 
 // update current_state 
 always @(posedge clk) begin
