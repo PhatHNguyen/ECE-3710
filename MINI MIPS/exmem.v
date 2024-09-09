@@ -18,9 +18,8 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 	reg [ADDR_WIDTH-1:0] addr_reg;
 	
 	// memory location space Indicator
-	//wire IO;
-	
-	//assign IO = (addr[7 -: 1] == 2'b11);
+	wire IO;
+	assign IO = (addr[7 -: 1] == 2'b11);
 
         // The $readmemb function allows you to load the
         // RAM with data on initialization to the FPGA
@@ -47,8 +46,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 
 	// Continuous assignment implies read returns NEW data.
 	// This is the natural behavior of the TriMatrix memory
-	// blocks in Single Port mode. 
-   assign q = ram[addr_reg];	
-	//assign q = IO ? switches :ram[addr_reg];
+	// blocks in Single Port mode. 	
+	assign q = IO ? switches :ram[addr_reg];
 
 endmodule // exmem
