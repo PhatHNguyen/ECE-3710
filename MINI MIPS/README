@@ -5,9 +5,9 @@ Date:       09-08-2024
 Project:    MINI MiPS
 ```
 
-# Overview of the ThunderBird Signal
+# Overview of the MINI MIPS
 
-The Mini MIPS perform a variety of instruction compute fabniachi numbers up to the 13th number and stores them in memory
+The Mini MIPS perform a variety of instruction in order to compute fabniachi numbers up to the 13th number and stores them in memory
 
 # Files that are included 
 
@@ -21,15 +21,21 @@ THe folllowing files that will be included in my submission are:
 # Results
 
 When running the simulation, I have tested the ADDI instruction by computing the 8th fabinachi number and checking the value in address 255. Once confirmed,
-I then proceed to create my own fabinachi procedure that would allow me to compute up to the 13th fabinachi number and store them in memory. With that, I developed
-a test bench that allow me to put the register address and then outputs the value in those register. I would tests all of the fabinachi numbers to check
-for functionality. Once verified, I have sucessfully completed the simulation and then move forward to the FPGA.
+I then proceed to create my own fabinachi procedure that would allow me to compute up to the 13th fabinachi number and store them in memory at address 128. With that, I developed
+the fiabonacci procedure in MARS and then preceed to create a new self-checking test bench that allow to self check the register address and then the value in those register. I would tests all 
+of the fabinachi numbers to check for functionality . Once verified, I have sucessfully completed the simulation and then move forward to the FPGA.
 
 
 # Problems encoountered
-Using Questa, I struggled with the memory as I have never used the RAM of the FPGA. Using the debug functionality as well as assistence from the professor,
-I was able to figure out to create a testbench that checks each of the value in a specified address. From there, I was able to complete the first part of the
-assignment which is checking if the modify mipscpu.v is able to compute the ADDI instruction. Moving on, I continue to struggle with the memory I/O due to 
+
+Using Questa, I struggled with the memory as I have never used the RAM of the FPGA. Using the debug functionality ,I was able to figure out to create
+a testbench that checks each of the value in a specified address. In addition I didnt know that the MINI MIPS is in 2 phase clk until the lecture from class. 
+From there, I was able fix my toplevel to account for 2 phase clk and complete the first part of the assignment. As for the second and third part, I developed the 
+MIPS first which wasnt hard. It was implemented into verilog that took a very long time to debug. I didn't know that the MINI MIPS use little endian, so I had to debug 
+the instruction to see how it works, eventually I did realize that made changes to my fib.dat file to be in terms of litle endian. Unfortunately, my fib.dat still produces 
+the incorrect result. With that, I went through the prvovided fib.dat file to understand each instruction. With that, I realize how the jump instruction works. It depends on the 
+line to where it is instead of the own address in the computer memory. 
+which is checking if the modify mipscpu.v is able to compute the ADDI instruction. Moving on, I continue to struggle with the memory I/O due to 
 a lack of knowledge. With that, I reread the book as well as ran and debug a simple input to see how the other modules interact with eachother. With that, I was able 
 to have a better understanding of the data path and the ALU. 
 
