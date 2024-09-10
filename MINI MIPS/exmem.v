@@ -35,11 +35,13 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 	begin
 		// Write
 		if (we)
-			//if(IO) begin
-			//	LEDS <= data;
-			// end else begin
+			// if IO is 11, then set the LEDS to the data
+			if(IO) begin
+				LEDS <= data;
+			// else put it into memory 
+			 end else begin
 				ram[addr] <= data;
-			//end
+			end
                 // register to hold the read address
 		addr_reg <= addr;
 	end
@@ -47,6 +49,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 	// Continuous assignment implies read returns NEW data.
 	// This is the natural behavior of the TriMatrix memory
 	// blocks in Single Port mode. 	
+	//if access in IO, set q to the input of the switches else 
 	assign q = IO ? switches :ram[addr_reg];
 
 endmodule // exmem
