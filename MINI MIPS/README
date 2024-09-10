@@ -34,11 +34,8 @@ From there, I was able fix my toplevel to account for 2 phase clk and complete t
 MIPS first which wasnt hard. It was implemented into verilog that took a very long time to debug. I didn't know that the MINI MIPS use little endian, so I had to debug 
 the instruction to see how it works, eventually I did realize that made changes to my fib.dat file to be in terms of litle endian. Unfortunately, my fib.dat still produces 
 the incorrect result. With that, I went through the prvovided fib.dat file to understand each instruction. With that, I realize how the jump instruction works. It depends on the 
-line to where it is instead of the own address in the computer memory. 
-which is checking if the modify mipscpu.v is able to compute the ADDI instruction. Moving on, I continue to struggle with the memory I/O due to 
-a lack of knowledge. With that, I reread the book as well as ran and debug a simple input to see how the other modules interact with eachother. With that, I was able 
-to have a better understanding of the data path and the ALU. 
-
+line to where it is instead of the own address in the computer memory. This knowledge helped me finish and test my fibonacci procedures. From there, I implement it into the FPGA and 
+it works.
 
 # NOTE: 
 I used CHATGPT to improve my writing by checking grammar, spelling, and flow of sentences.
