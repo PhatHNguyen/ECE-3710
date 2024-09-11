@@ -3,7 +3,7 @@ module bitGen1
 	input [2:0] switches,
 	input [9:0] hcount,
 	input [9:0] vcount,
-	input display_pixel,
+	input bright,
 					
 	output reg [7:0] red,
 		  [7:0] blue,
@@ -26,7 +26,7 @@ always@(*) begin
 		blue  <= 0;
 		green <= 0;
 	end else begin 
-		if(~display_pixel) begin
+		if(~bright) begin
 			red   <= 0;
 			blue  <= 0;
 			green <= 0;
@@ -65,6 +65,11 @@ always@(*) begin
 			end
 			Black: begin
 				red <= 8'b00000000;
+				green <= 8'b00000000;
+				blue <= 8'b00000000;
+			end
+			default: begin
+				red <= 8'b10000000;
 				green <= 8'b00000000;
 				blue <= 8'b00000000;
 			end
