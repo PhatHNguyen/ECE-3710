@@ -30,7 +30,7 @@ module TopLevel
 	wire vsync;
 	wire [9:0] hCount;
 	wire [9:0] vCount;
-	wire display_pixels; 
+	wire bright; 
 	
 	
 	
@@ -51,8 +51,9 @@ module TopLevel
 		VGA_Hsync <= hsync;
 		VGA_Vsync <= vsync;
 		
-		if(bitGenSelector) begin 
-			VGA_Red <= red2;
+		// Select BitGen 1 or BitGen 2 
+		if(bitGenSelector) begin
+			VGA_Red <= red2; 
 			VGA_Blue <= blue2;
 			VGA_Green <= green2;
 			VGA_LED <= LEDS;
@@ -63,7 +64,8 @@ module TopLevel
 			VGA_LED <= 6'b000000;
 		end
 		
-		if(display_pixels) begin
+		// if dislaying pixel, signify VGA displayment 
+		if(bright) begin
 			VGA_Display <= 1;
 		end else begin 
 			VGA_Display <= 0;
@@ -98,9 +100,13 @@ module TopLevel
 		);
 		
 		FSMTS Turn_Signal(
-			.buttons(buttons2),
-			.clk(FSM_clk),
-			.LED_status(LEDS)
+			.left(buttons2[0]),
+			.right(buttons2[1]),
+			.reset(buttons2[2]),
+			.hazard(buttons2[3]),
+			.clk(clk),
+			.en(FSM_clk),
+			.status(LEDS)
 		);
 		
 		bitGenerator2 bitGen2(
