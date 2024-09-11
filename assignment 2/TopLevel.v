@@ -1,19 +1,19 @@
 module TopLevel
 	(
 		input power,
-	      	      clk,
-		[2:0] switches1,
-		[3:0] buttons2,
-      		bitGenSelector,
+	      	input  clk,
+		input [2:0] switches1,
+		input [3:0] buttons2,
+      		input bitGenSelector,
 				
 		output reg VGA_Hsync,
-			   VGA_Vsync,
-			     VGA_clk,
-			  VGA_Display,
-			[5:0] VGA_LED,
-			[7:0] VGA_Red,
-			[7:0] VGA_Blue,
-			[7:0] VGA_Green
+		output reg VGA_Vsync,
+		output reg VGA_clk,
+		output reg  VGA_Display,
+		output reg [5:0] VGA_LED,
+		output reg [7:0] VGA_Red,
+		output reg [7:0] VGA_Blue,
+		output reg [7:0] VGA_Green
 	);
 	
 	reg slower_clk = 0;
