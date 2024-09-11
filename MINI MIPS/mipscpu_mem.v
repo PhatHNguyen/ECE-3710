@@ -3,7 +3,6 @@ module mipscpu_mem(
 	input reset,
 	output memwrite,
         output wire [7:0] adr,
-	output wire [7:0] w
 	output wire [7:0] writedata
 );
 wire [7:0] q;

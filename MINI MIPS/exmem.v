@@ -8,7 +8,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 	input [(ADDR_WIDTH-1):0] addr,
 	input                    we, clk,
 	output [(DATA_WIDTH-1):0] q,
-	output reg [(DATA_WIDTH-1):0] LEDS
+	output reg [(DATA_WIDTH-1):0] LEDS = 0
         );
 
 	// Declare the RAM variable
@@ -19,7 +19,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 	
 	// memory location space Indicator
 	wire IO;
-	assign IO = (addr[7 -: 1] == 2'b11);
+	assign IO = (addr[7:6] == 2'b11);
 
         // The $readmemb function allows you to load the
         // RAM with data on initialization to the FPGA
@@ -27,7 +27,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
         // for your own location. 
 	initial begin
 	$display("Loading memory");
-	$readmemb("/home/u1278438/fib-b.dat", ram);
+	$readmemh("/home/u1278438/fib-h.dat", ram);
 	$display("done loading");
 	end
 
@@ -42,7 +42,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 			 end else begin
 				ram[addr] <= data;
 			end
-                // register to hold the read address
+                // register to hold the next address
 		addr_reg <= addr;
 	end
 
