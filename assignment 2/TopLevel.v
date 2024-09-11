@@ -16,8 +16,6 @@ module TopLevel
 		output reg [7:0] VGA_Green
 	);
 	
-	reg slower_clk = 0;
-	
 	wire [7:0] red1;
 	wire [7:0] blue1;
 	wire [7:0] green1;
@@ -41,9 +39,9 @@ module TopLevel
 	
 	always@(posedge clk) begin
 		if(~power)
-			slower_clk <= 0;
+			VGA_clk <= 0;
 		else 
-			slower_clk <= ~slower_clk;
+			VGA_clk <= ~VGA_clk;
 	end
 	// ****************************************
 	
@@ -52,7 +50,6 @@ module TopLevel
 	always@(*) begin 
 		VGA_Hsync <= hsync;
 		VGA_Vsync <= vsync;
-		VGA_clk <= slower_clk;
 		
 		if(bitGenSelector) begin 
 			VGA_Red <= red2;
@@ -74,22 +71,22 @@ module TopLevel
 	end
 	// ****************************************
 	
-	// ***********Sub modules******************
+	// ***********Instanstiate modules*********
 		VGA_control control(
-			.clk(slower_clk),
+			.clk(VGA_clk),
 			.clear(power),
 			.hsync(hsync),
 			.vsync(vsync),
 			.hCount(hCount),
 			.vCount(vCount),
-			.display_pixel(display_pixel)	
+			.bright(bright)	
 		);
 		
 		bitGenerator1 bitGen1(
 			.switches(swithces),
 			.hcount(hcount),
 			.vcount(vcount),
-			.display_pixel(display_pixels),
+			.bright(bright),
 			.red(red1),
 			.blue(blue1),
 			.green(green1)
@@ -109,7 +106,7 @@ module TopLevel
 		bitGenerator2 bitGen2(
 			.hcount(hcount),
 			.vcount(vcount),
-			.display_pixel(display_pixel),
+			.bright(bright),
 			.LEDS(LEDS),
 			.red(red2),
 			.blue(blue2),
