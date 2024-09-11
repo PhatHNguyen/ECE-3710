@@ -1,14 +1,13 @@
- module VGA_control
+ module VGATimer
 	(
 		input 		clk,
-			        clear,
+		input	        clear,
 				
 		output reg      hsync,
-				vsync,
-		         [9:0] vcount,
-			 [9:0] hcount,
-
-	     	output reg  display_pixel
+		output reg	vsync,
+		output reg [9:0] vcount,
+		outout reg [9:0] hcount,
+	     	output reg  bright
 	 );
 
     always @(posedge clk) begin
@@ -18,25 +17,22 @@
         end else begin
             // Increment hcount and handle display logic based on hcount and vcount
             if(hcount < 96) begin
-			if(vcount >= 496)
-				vcount <= 0;
-				
-			hsync <= 1;
+		    if(vcount >= 639)
+			vcount <= 0;
+			hsync <= 0;
 			hcount <= hcount + 1;
-			display_pixel <= 0;
+			bright <= 0;
 		end
 		//in H back porch
 		else if(hcount < 144) begin 
 			hcount <= hcount + 1;
-			
-			hsync <= 0;
-			display_pixel <= 0;
+			hsync <= 1;
+			bright <= 0;
 		end 
 		else if(hcount < 784) begin 
 			hcount <= hcount + 1;
-			
-			hsync <= 0;
-			display_pixel <= 1;
+			hsync <= 1;
+			bright <= 1;
 		end 
 		
 		//past the active area
@@ -46,8 +42,9 @@
 				vcount <= vcount + 1;
 			end else begin
 				hcount <= hcount + 1; 
+				hsync <= 1;
 			end
-			display_pixel <= 0;
+			bright <= 0;
 		end 
         end
         
