@@ -1,8 +1,8 @@
 module bitGenerator1
  (
 	input [2:0] switches,
-			[9:0] hcount,
-			[9:0] vcount,
+	input [9:0] hcount,
+	input [9:0] vcount,
 	input display_pixel,
 					
 	output reg [7:0] red,
