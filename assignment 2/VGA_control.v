@@ -6,7 +6,7 @@
 		output reg      hsync,
 		output reg	vsync,
 		output reg [9:0] vcount,
-		outout reg [9:0] hcount,
+		output reg [9:0] hcount,
 	     	output reg  bright
 	 );
 
