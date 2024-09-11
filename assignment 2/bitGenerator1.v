@@ -1,4 +1,4 @@
-module bitGenerator1
+module bitGen1
  (
 	input [2:0] switches,
 	input [9:0] hcount,
