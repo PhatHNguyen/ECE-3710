@@ -28,8 +28,8 @@ module TopLevel
 	wire [7:0] green2;
 	wire [5:0] LEDS;
 	
-	wire Hsync;
-	wire Vsync;
+	wire hsync;
+	wire vsync;
 	wire [9:0] hCount;
 	wire [9:0] vCount;
 	wire display_pixels; 
@@ -50,8 +50,8 @@ module TopLevel
 	
 	// *********Produce outputs****************
 	always@(*) begin 
-		VGA_Hsync <= Hsync;
-		VGA_Vsync <= Vsync;
+		VGA_Hsync <= hsync;
+		VGA_Vsync <= vsync;
 		VGA_clk <= slower_clk;
 		
 		if(bitGenSelector) begin 
@@ -78,8 +78,8 @@ module TopLevel
 		VGA_control control(
 			.clk(slower_clk),
 			.clear(power),
-			.hsync(Hsync),
-			.vsync(Vsync),
+			.hsync(hsync),
+			.vsync(vsync),
 			.hCount(hCount),
 			.vCount(vCount),
 			.display_pixel(display_pixel)	
