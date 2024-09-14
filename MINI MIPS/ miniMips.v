@@ -1,3 +1,9 @@
+/* File Name: miniMips.v
+* Author:  Phat Nguyen
+* Create Date:    09/08/2024
+* Purpose: test the mipscpu_mem with the given fibonacci code to see if it stores the 8th number into 255
+* ECE 3710 MINI MIPS
+*/
 module miniMips(
 	input clk,
 	input rst,
