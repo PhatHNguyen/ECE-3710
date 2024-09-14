@@ -33,7 +33,7 @@ begin
   clk <= 1; #5; clk <= 0; #5;
 end
 
-
+// self checking test_bench that checks for the address 255 and see if it store the 8th number : 13
 always@(negedge clk) 
   if(UUT.memwrite)
     if(UUT.adr == 8'd255 & UUT.writedata == 8'h0d)
