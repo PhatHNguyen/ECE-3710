@@ -1,3 +1,9 @@
+/* File Name: bitGen2.v
+* Author:  Phat Nguyen
+* Create Date:    09/08/2024
+* Purpose: refresh and display ThunderbirdSignal on the screen
+* ECE 3710 VGA
+*/
 module bitGen2
  (
 	input [9:0] hcount,
