@@ -107,8 +107,8 @@ module controller(input            clk, reset,
                         SB:      nextstate <= SBWR;
                         default: nextstate <= FETCH1; // should never happen
                      endcase
-            ADDREGANDIMM: nextstate <= STOREADDIRESULT; // ADDED THIS: 
-	    STOREADDIRESULT: nextstate <= FETCH1;
+            ADDREGANDIMM: nextstate <= STOREADDIRESULT; // ADDED THIS: after adding, set the next instruction to store value into a reg 
+	    STOREADDIRESULT: nextstate <= FETCH1;  //ADDED THIS: Once stored go back to the Fetch 1 to store the next instruction 
             LBRD:    nextstate <= LBWR;
             LBWR:    nextstate <= FETCH1;
             SBWR:    nextstate <= FETCH1;
