@@ -65,8 +65,8 @@ module controller(input            clk, reset,
    parameter   RTYPEWR =  4'b1011;
    parameter   BEQEX   =  4'b1100;
    parameter   JEX     =  4'b1101;
-   parameter  ADDREGANDIMM: = 4'b1110; // added stage for computed addition between reg and imm
-   parameter   STOREADDIRESULT     =  4'b1111; // added stage for writing the sum value into memory 
+   parameter  ADDREGANDIMM: = 4'b1110; // ADDED THIS: added stage for computed addition between reg and imm
+   parameter   STOREADDIRESULT     =  4'b1111; // ADDED THIS: added stage for writing the sum value into memory 
    
 
 	// parameters used for instruction types 
@@ -75,7 +75,7 @@ module controller(input            clk, reset,
    parameter   RTYPE   =  6'b0;
    parameter   BEQ     =  6'b000100;
    parameter   J       =  6'b000010;
-   parameter   ADDI    =  6'b001000; // added the Add Immediate instruction 
+   parameter   ADDI    =  6'b001000; //ADDED THIS: added the Add Immediate instruction 
 
    reg [3:0] state, nextstate;       // state register and nextstate value
    reg       pcwrite, pcwritecond;   // Write to the PC? 
@@ -99,7 +99,7 @@ module controller(input            clk, reset,
                         RTYPE:   nextstate <= RTYPEEX;
                         BEQ:     nextstate <= BEQEX;
                         J:       nextstate <= JEX;
-			ADDI:    nextstate <= ADDREGANDIMM;
+			ADDI:    nextstate <= ADDREGANDIMM; // ADDED THIS: If op instruction is ADDI, start the process by setting the next instruction to ADDREGANDIMM
                         default: nextstate <= FETCH1; // should never happen
                      endcase
             MEMADR:  case(op)
@@ -107,7 +107,7 @@ module controller(input            clk, reset,
                         SB:      nextstate <= SBWR;
                         default: nextstate <= FETCH1; // should never happen
                      endcase
-            ADDREGANDIMM: nextstate <= STOREADDIRESULT;
+            ADDREGANDIMM: nextstate <= STOREADDIRESULT; // ADDED THIS: 
 	    STOREADDIRESULT: nextstate <= FETCH1;
             LBRD:    nextstate <= LBWR;
             LBWR:    nextstate <= FETCH1;
@@ -208,9 +208,9 @@ module controller(input            clk, reset,
 		// create a write immediate stage for ADDI Instruction
 		STOREADDIRESULT: 
 		  begin
-		     RegDst   <= 0; 
-                     RegWrite <= 1; // write the data value into reg 
-		     MemToReg <= 0;
+		     regdst   <= 0; // ADDED THIS: set destination register to sum value  
+                     regwrite <= 1; // ADDED THIS: write the data value into reg 
+		     memtoreg <= 0; // ADDED THIS: the data comes from the ALU result
 		  end 
          endcase
       end
