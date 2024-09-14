@@ -27,9 +27,10 @@ initial begin
  reset = 1;
 end
 
+// clock generator 
 always 
 begin
-clk <= 1; #5; clk <= 0; #5;
+  clk <= 1; #5; clk <= 0; #5;
 end
 
 
