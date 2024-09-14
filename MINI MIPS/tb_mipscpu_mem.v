@@ -6,6 +6,7 @@
 */
 module tb_mipscpu_mem();
 
+// instantiate the inputs and outputs
 reg clk;
 reg reset;
 wire [7:0] adr;
