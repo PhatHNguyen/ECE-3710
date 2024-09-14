@@ -6,10 +6,10 @@
 */
 module bitGen2
  (
-	input [9:0] hcount,
-	input [9:0] vcount,
-	input	    bright,
-	input	[5:0] LEDS,						
+	 input [9:0] hcount,  // x position on the screen
+	 input [9:0] vcount,  // y position on the screen
+	input	    bright,  // at the specified psoition, turn on/off the that spot
+	 input	[5:0] LEDS,  // Status of the ThunderBirdSignal					
 	output reg [7:0] red,
 	output reg [7:0] blue,
 	output reg [7:0] green
