@@ -11,12 +11,14 @@ module miniMips(
 	output [7:0] LEDS
 );
 
+// initalize wires to connect the mipscpi and exmem 
 wire memwrite;
 wire [7:0] adr;
 wire [7:0] writedata;
 // read data 
 wire [7:0] q;
 
+// instantiate the mipscpu and exmem 
 	mipscpu mips(
 		.clk(clk),
 		.reset(rst),
