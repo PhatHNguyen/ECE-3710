@@ -1,3 +1,9 @@
+/* File Name: mipscpu_mem.v
+* Author:  Phat Nguyen
+* Create Date:    09/08/2024
+* Purpose: instansitate the mipscpu and exmem to and connect them 
+* ECE 3710 MINI MIPS
+*/
 module mipscpu_mem(
 	input clk,
 	input reset,
