@@ -8,6 +8,7 @@ module mipscpu_mem(
 wire [7:0] q;
 
 
+// instanstiate the mipscpu and exmeme. also connect them like in class
 	mipscpu mips(
 		.clk(clk),
 		.reset(reset),
