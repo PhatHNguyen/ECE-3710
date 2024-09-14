@@ -32,7 +32,7 @@ always@(*) begin
 		red   <= 0;
 		blue  <= 0;
 		green <= 0;
-	// user dont want it to screen to display color. set red,blue, and green to 0 (no color display)
+	// if user dont want the screen to display. set red,blue, and green to 0 (no color display)
 	end else begin 
 		if(~bright) begin
 			red   <= 0;
