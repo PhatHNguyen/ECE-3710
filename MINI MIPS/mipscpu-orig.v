@@ -201,9 +201,9 @@ module controller(input            clk, reset,
 		// created a new add stage for ADDI Instruction
 		ADDREGANDIMM:
 		 begin
-		    alusrca <= 1; // set register a to the first register 
-                    alusrcb <= 2'b10; // set register b to an immediate 
-		    aluop <= 2'b00;  // use add operation from the ALU
+		    alusrca <= 1; // ADDED THIS: set register a to the first register 
+                    alusrcb <= 2'b10; // ADDED THIS: set register b to an immediate 
+		    aluop <= 2'b00;  // ADDED THIS: use add operation from the ALU
 		 end
 		// create a write immediate stage for ADDI Instruction
 		STOREADDIRESULT: 
