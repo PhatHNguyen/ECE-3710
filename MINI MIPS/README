@@ -13,10 +13,17 @@ The Mini MIPS perform a variety of instruction in order to compute fabniachi num
 
 THe folllowing files that will be included in my submission are:
 1. README.md
-2. Finite State machine diagaram.pdf
-3. ThunderBirdSignal.v
-4. tb_ThunderBirdSignal.v
-5. SimulationResult.pdf
+2. Simulation result with given Fib procedures.pdf
+3. mipscpu-orig.v
+4. exmem.v
+5. mipscpu_mem.v
+6. tb_mipscpu_mem.v
+7. fibn.asm
+8. fib-h.dat
+9. tb_mipscpu_mem_NF.v
+10. Simulation result with my Fib procedures.pdf
+11. miniMips.v
+12. tb_miniMips.v
 
 # Results
 
@@ -38,4 +45,4 @@ line to where it is instead of the own address in the computer memory. This know
 it works.
 
 # NOTE: 
-I used CHATGPT to improve my writing by checking grammar, spelling, and flow of sentences.
+Please note that tb_mipscpu_mem and tb_mipscpu_mem_NF utilized the given exmem from canvas.
