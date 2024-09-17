@@ -46,10 +46,9 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
 		addr_reg <= addr;
 	end
 
-	// Continuous assignment implies read returns NEW data.
-	// This is the natural behavior of the TriMatrix memory
-	// blocks in Single Port mode. 	
+	// Continuous assignment implies read returns NEW data.	
 	//if access in IO, set q to the input of the switches else  set q  to ram at a specific address
+	// This will allow the input switches to tell the mips cpu to the send desire data back to exmem
 	assign q = IO ? switches :ram[addr_reg];
 
 endmodule // exmem
