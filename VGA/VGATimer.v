@@ -1,7 +1,7 @@
 /* File Name: VGATimer.v
 * Author:  Phat Nguyen
 * Create Date:    09/08/2024
-* Purpose: This module monitors the pixels on the screen (whether they should be bright or not) 
+* Purpose: This module generate/monitors the pixels on the screen (whether they should be bright or not) 
 * by using hcount and vcount to iterate through each pixel in a 640x800 pixel display. 
 * It generates the horizontal and vertical sync signals (hsync, vsync) and tracks when 
 * to update the display by notifying the user when it's entering 
