@@ -1,3 +1,9 @@
+/* File Name: VGA_Toplevel.v
+* Author:  Phat Nguyen
+* Create Date:    09/08/2024
+* Purpose: instanstiate modules for VGA displayment 
+* ECE 3710 MINI MIPS
+*/
 module VGA_Toplevel
 	(
 		input power,
@@ -15,24 +21,26 @@ module VGA_Toplevel
 		output reg [7:0] VGA_Blue,
 		output reg [7:0] VGA_Green
 	);
-	
+	// for bitGen1
 	wire [7:0] red1;
 	wire [7:0] blue1;
 	wire [7:0] green1;
-	
+
+	// for ThunderBird Signal (bitGen2)
 	wire       FSM_clk; 
 	wire [7:0] red2;
 	wire [7:0] blue2;
 	wire [7:0] green2;
 	wire [5:0] LEDS;
-	
+
+	// for VGATimer 
 	wire hsync;
 	wire vsync;
 	wire [9:0] hcount;
 	wire [9:0] vcount;
 	wire bright; 
 	
-	// ***Produce a 25MHZ signal from 50MHZ****
+	// Produce a 25MHZ signal from 50MHZ
 	
 	always@(posedge clk) begin
 		if(~power)
@@ -40,10 +48,10 @@ module VGA_Toplevel
 		else 
 			VGA_clk <= ~VGA_clk;
 	end
-	// ****************************************
+	// end of clock 25 MHZ signal producer 
 	
 	
-	// *********Produce outputs****************
+	// Produce outputs based on the Bit Gen switches
 	always@(*) begin 
 		VGA_Hsync <= hsync;
 		VGA_Vsync <= vsync;
@@ -68,9 +76,11 @@ module VGA_Toplevel
 			VGA_Display <= 0;
 		end
 	end
-	// ****************************************
+	// end of outputing 
 	
-	// ***********Instanstiate modules*********
+	// Instanstiate VGATimer, bitGen1, clock Divider, Thunderbird Signals FSM,
+	// and bitGen2 modules
+	// to generate/monitor the displaymnet on the screen
 		VGATimer control(
 			.clk(VGA_clk),
 			.clear(power),
@@ -80,7 +90,7 @@ module VGA_Toplevel
 			.hcount(hcount),
 			.bright(bright)	
 		);
-		
+		// to display colors on the screen
 		bitGen1 bitGenerator1(
 			.switches(switches1),
 			.hcount(hcount),
@@ -90,12 +100,12 @@ module VGA_Toplevel
 			.blue(blue1),
 			.green(green1)
 		);
-		
+		// to generate an clk enable for the ThunderBirdSignal
 		clockDivider clk_Divider(
 			.clk(clk),
 			.slower_clk(FSM_clk)
 		);
-		
+		// To generate turn signal based on the inputs left,right, or hazard
 		ThunderBirdSignal Turn_Signal(
 			.left(buttons2[0]),
 			.right(buttons2[1]),
@@ -105,7 +115,7 @@ module VGA_Toplevel
 			.enable(FSM_clk),
 			.status(LEDS)
 		);
-		
+		// to display the Thunderbird Signal on the screen
 		bitGen2 bitGenerator2(
 			.hcount(hcount),
 			.vcount(vcount),
@@ -115,6 +125,6 @@ module VGA_Toplevel
 			.blue(blue2),
 			.green(green2)
 		);
-	// ****************************************	
+	// end of instanstiating moduels 
 endmodule
 	
