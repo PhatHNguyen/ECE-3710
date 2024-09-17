@@ -1,10 +1,19 @@
+/* File Name: tb_mipscpu_mem.v
+* Author:  Phat Nguyen
+* Create Date:    09/08/2024
+* Purpose: test the mipscpu_mem with my fibonacci code to see if it stores all 
+* 13 fibonacci numbers between address 128 - 141 
+* ECE 3710 MINI MIPS
+*/
 module tb_mipscpu_mem_NF();
 
+// initialize the inputs and outputs
 reg clk;
 reg reset;
 wire [7:0] adr;
 wire [7:0] writedata;
 
+// Instanstiate the module that contains the mips cpu and exmem 
 mipscpu_mem UUT(
 	.clk(clk),
 	.reset(reset),
@@ -13,18 +22,20 @@ mipscpu_mem UUT(
 	.writedata(writedata)
 );
 
+// reset the MIPSCPU and exmem
 initial begin
  reset = 0;
  #20;
  reset = 1;
 end
 
+// clock generator 
 always 
 begin
 clk <= 1; #5; clk <= 0; #5;
 end
 
-
+// self checking test_bench that checks the addresses 128 - 141 and see if it stores the correct fibonacci numbers
 always@(negedge clk) 
   if(UUT.memwrite) begin
     if((UUT.adr == 8'd128) & (UUT.writedata == 8'd0))
