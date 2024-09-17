@@ -1,7 +1,7 @@
 /* File Name: miniMips.v
 * Author:  Phat Nguyen
 * Create Date:    09/08/2024
-* Purpose: instansitate the mipscpu and exmem to and connect them (This time with the switches and LEDS as input and output)
+* Purpose: instanstiate the mipscpu and exmem to and connect them (This time with the switches and LEDS as input and output)
 * ECE 3710 MINI MIPS
 */
 module miniMips(
