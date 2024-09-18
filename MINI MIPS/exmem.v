@@ -27,7 +27,7 @@ module exmem #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=8)
         // for your own location. 
 	initial begin
 	$display("Loading memory");
-	$readmemh("/home/u1278438/fib-h.dat", ram);
+	$readmemh("/home/u1278438/fib-h.dat", ram); //change directory
 	$display("done loading");
 	end
 
