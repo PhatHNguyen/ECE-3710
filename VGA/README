@@ -1,13 +1,13 @@
 ```
 Author:     Phat Nguyen
 Course:     ECE 3710 
-Date:       09-08-2024  
-Project:    MINI MiPS
+Date:       09-21-2024  
+Project:    VGA 
 ```
 
-# Overview of the MINI MIPS
+# Overview of the VGA
 
-The Mini MIPS perform a variety of instruction in order to compute fabniachi numbers up to the 13th number and stores them in memory
+The VGA displays colors onto the monitor. In addition, it has the option to display the Thunderbird Signal onto the the monitor. 
 
 # Files that are included 
 
@@ -20,22 +20,17 @@ THe folllowing files that will be included in my submission are:
 
 # Results
 
-When running the simulation, I have tested the ADDI instruction by computing the 8th fabinachi number and checking the value in address 255. Once confirmed,
-I then proceed to create my own fabinachi procedure that would allow me to compute up to the 13th fabinachi number and store them in memory at address 128. With that, I developed
-the fiabonacci procedure in MARS and then preceed to create a new self-checking test bench that allow to self check the register address and then the value in those register. I would tests all 
-of the fabinachi numbers to check for functionality . Once verified, I have sucessfully completed the simulation and then move forward to the FPGA.
+When running the simulation, I have tested the VGATimer to see if it will refresh the "screen" once it has finished. Fortunately, it produced the correct
+result. From there, I tested it on the FPGA by displaying the colors onto the screen. All colors were able to display when using the switches. From there, I implemented
+the BitGen2 with ThunderBirdSignal. With that, I tested on the FPGA and got 5 out of the LEDS to light up. This is becuase I have placed the 6th LED(third left signal) out of the
+display area, causing it to not display. To fix this I shifted all of the LEDS to the right by 50 in order to get the 6th LED to be in the display area. As a resutl, I got the 
+VGA module to display the ThunderBirdSignal on to the screen. 
 
 
 # Problems encoountered
 
-Using Questa, I struggled with the memory as I have never used the RAM of the FPGA. Using the debug functionality ,I was able to figure out to create
-a testbench that checks each of the value in a specified address. In addition I didnt know that the MINI MIPS is in 2 phase clk until the lecture from class. 
-From there, I was able fix my toplevel to account for 2 phase clk and complete the first part of the assignment. As for the second and third part, I developed the 
-MIPS first which wasnt hard. It was implemented into verilog that took a very long time to debug. I didn't know that the MINI MIPS use little endian, so I had to debug 
-the instruction to see how it works, eventually I did realize that made changes to my fib.dat file to be in terms of litle endian. Unfortunately, my fib.dat still produces 
-the incorrect result. With that, I went through the prvovided fib.dat file to understand each instruction. With that, I realize how the jump instruction works. It depends on the 
-line to where it is instead of the own address in the computer memory. This knowledge helped me finish and test my fibonacci procedures. From there, I implement it into the FPGA and 
-it works.
+The only problem that I have encounter was the 6th LED (third left signal ) not displaying on the screen. This is because the 6th LED section was not in the active area. To
+fix, i shifted the LEDS sections of the active area to the right by 50 pixels. This allow it to the 6th LED to be in active display area. As a result, my VGA module is able 
+to produce the ThunderBirdSignal onto the screen.
 
 # NOTE: 
-I used CHATGPT to improve my writing by checking grammar, spelling, and flow of sentences.
