@@ -2,7 +2,7 @@
 * Author:  Phat Nguyen
 * Create Date:    09/08/2024
 * Purpose: instanstiate modules for VGA displayment 
-* ECE 3710 MINI MIPS
+* ECE 3710 VGA
 */
 module VGA_Toplevel
 	(
