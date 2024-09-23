@@ -15,7 +15,8 @@ module VGA_Toplevel
 		output reg VGA_Hsync,
 		output reg VGA_Vsync,
 		output reg VGA_clk,
-		output reg  VGA_Display,
+		output reg VGA_Blank_N,
+		output reg VGA_Sync_N,
 		output reg [5:0] VGA_LED,
 		output reg [7:0] VGA_Red,
 		output reg [7:0] VGA_Blue,
@@ -39,6 +40,9 @@ module VGA_Toplevel
 	wire [9:0] hcount;
 	wire [9:0] vcount;
 	wire bright; 
+
+	// is always inactive (inactive high, active low)
+	VGA_Sync_N = 1;
 	
 	// Produce a 25MHZ signal from 50MHZ
 	
@@ -69,11 +73,11 @@ module VGA_Toplevel
 			VGA_LED <= 6'b000000;
 		end
 		
-		// if dislaying pixel, signify VGA displayment 
+		// if dislaying pixel, signify VGA Blank 
 		if(bright) begin
-			VGA_Display <= 1;
+			VGA_Blank_N <= 1;
 		end else begin 
-			VGA_Display <= 0;
+			VGA_Blank_N <= 0;
 		end
 	end
 	// end of outputing 
