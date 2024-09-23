@@ -1,3 +1,11 @@
+/*
+* File Name: tb_VGAControl.v
+* Author:  Phat Nguyen
+* Create Date:    8/20/2024
+* Purpose: test VGATimer to determine if it produce the correct outcome for the correct area
+* as well as reset the vcount and hcount to 0
+* ECE 3710 VGA
+*/
 module tb_VGAControl();
 
 reg clk;
@@ -10,7 +18,7 @@ wire bright;
 wire [9:0] hcount;
 wire [9:0] vcount;
 	  
-	  
+//Instantiate VGATimer 	  
 VGATimer controlUUT(
 
 	.clk(clk),
@@ -22,18 +30,21 @@ VGATimer controlUUT(
 	.bright(bright)
 	
 	);
-	
+
+// clk generator
  initial begin
    	clk = 0;
    	forever #5 clk = ~clk;
  end
- 
+
+// simulate the following task
  initial begin
 	clearActive;
 	screenRefresh;
 	$stop;
  end
- 
+
+// active clear, to reset hcount and vcount = 0 
  task clearActive;
  begin   
 	clear = 0;
@@ -44,6 +55,7 @@ VGATimer controlUUT(
 end
 endtask
 
+// let hcount and vcount increment and reset to 0, in certain area bright should high indicate the specific pixel should display 
 task screenRefresh;
 begin
 	clear =0;
