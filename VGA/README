@@ -13,9 +13,9 @@ The VGA displays colors onto the monitor. In addition, it has the option to disp
 
 THe folllowing files that will be included in my submission are:
 1. README.md
-2. Finite State machine diagaram.pdf
-3. ThunderBirdSignal.v
-4. tb_ThunderBirdSignal.v
+2. VGA_Toplevel.v
+3. VGATimer.v
+4. bitGen1.v
 5. SimulationResult.pdf
 
 # Results
