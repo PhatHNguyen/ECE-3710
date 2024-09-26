@@ -7,32 +7,38 @@
 module VGA_Toplevel
 	(
 		input power,
-	      	input  clk,
+	   input  clk,
 		input [2:0] switches1,
-		input [3:0] buttons2,
+		input leftTurnButton,
+		input rightTurnButton,
+		input hazardButtton,
+		input resetButton,
       		input bitGenSelector,
 				
-		output reg VGA_Hsync,
-		output reg VGA_Vsync,
-		output reg VGA_clk,
-		output reg VGA_Blank_N,
-		output reg VGA_Sync_N,
+		output reg VGA_HS,
+		output reg VGA_VS,
+		output reg VGA_CLK = 0,
+		output reg VGA_BLANK_N,
+		output reg VGA_SYNC_N,
 		output reg [5:0] VGA_LED,
 		output reg [7:0] VGA_Red,
 		output reg [7:0] VGA_Blue,
 		output reg [7:0] VGA_Green
 	);
+	
+	
 	// for bitGen1
 	wire [7:0] red1;
 	wire [7:0] blue1;
 	wire [7:0] green1;
 
 	// for ThunderBird Signal (bitGen2)
-	wire       FSM_clk; 
+	wire       enable; 
 	wire [7:0] red2;
 	wire [7:0] blue2;
 	wire [7:0] green2;
 	wire [5:0] LEDS;
+	
 
 	// for VGATimer 
 	wire hsync;
@@ -41,24 +47,32 @@ module VGA_Toplevel
 	wire [9:0] vcount;
 	wire bright; 
 
-	// is always inactive (inactive high, active low)
-	VGA_Sync_N = 1;
+	// VGA_SYNC_N is active low, make it active once hsync or vsync (new row/column) is active 
+	always @(*) begin
+	if(hsync || vsync)
+	begin
+		VGA_SYNC_N <= 0;
+	end else begin
+		VGA_SYNC_N <= 1;
+	end
+	end
 	
 	// Produce a 25MHZ signal from 50MHZ
 	
 	always@(posedge clk) begin
-		if(~power)
-			VGA_clk <= 0;
+		if(power)
+			VGA_CLK <= ~VGA_CLK;
 		else 
-			VGA_clk <= ~VGA_clk;
+			VGA_CLK <= 0;
+			
 	end
 	// end of clock 25 MHZ signal producer 
 	
 	
 	// Produce outputs based on the Bit Gen switches
 	always@(*) begin 
-		VGA_Hsync <= hsync;
-		VGA_Vsync <= vsync;
+		VGA_HS <= hsync;
+		VGA_VS <= vsync;
 		
 		// Select BitGen 1 or BitGen 2 
 		if(bitGenSelector) begin
@@ -75,9 +89,9 @@ module VGA_Toplevel
 		
 		// if dislaying pixel, signify VGA Blank 
 		if(bright) begin
-			VGA_Blank_N <= 1;
+			VGA_BLANK_N <= 1;
 		end else begin 
-			VGA_Blank_N <= 0;
+			VGA_BLANK_N <= 0;
 		end
 	end
 	// end of outputing 
@@ -86,7 +100,7 @@ module VGA_Toplevel
 	// and bitGen2 modules
 	// to generate/monitor the displaymnet on the screen
 		VGATimer control(
-			.clk(VGA_clk),
+			.clk(VGA_CLK),
 			.clear(power),
 			.hsync(hsync),
 			.vsync(vsync),
@@ -107,16 +121,17 @@ module VGA_Toplevel
 		// to generate an clk enable for the ThunderBirdSignal
 		clockDivider clk_Divider(
 			.clk(clk),
-			.slower_clk(FSM_clk)
+			.reset(resetButton),
+			.slower_clk(enable)
 		);
 		// To generate turn signal based on the inputs left,right, or hazard
 		ThunderBirdSignal Turn_Signal(
-			.left(buttons2[0]),
-			.right(buttons2[1]),
-			.reset(buttons2[2]),
-			.hazard(buttons2[3]),
-			.clk(clk),
-			.enable(FSM_clk),
+			.left(leftTurnButton),
+			.right(rightTurnButton),
+			.reset(resetButton),
+			.hazard(hazardButtton),
+			.clk(VGA_CLK),
+			.enable(enable),
 			.status(LEDS)
 		);
 		// to display the Thunderbird Signal on the screen
@@ -131,4 +146,3 @@ module VGA_Toplevel
 		);
 	// end of instanstiating moduels 
 endmodule
-	
