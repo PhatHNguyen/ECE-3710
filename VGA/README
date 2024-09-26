@@ -16,7 +16,8 @@ THe folllowing files that will be included in my submission are:
 2. VGA_Toplevel.v
 3. VGATimer.v
 4. bitGen1.v
-5. SimulationResult.pdf
+5. bitGen2.v
+6. tb_VGAControl.v
 
 # Results
 
