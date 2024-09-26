@@ -18,12 +18,12 @@ module VGATimer
 		output reg	vsync,  // vertical sync 
 		output reg [9:0] vcount, // counter for vertical position for the screen
 		output reg [9:0] hcount, // counter for horizontal position for the screen
-	     	output reg  bright // at the specified position, turn on/off the that pixel
+	     	output reg  bright // at the specified position, display or dont display the pixel
 	 );
 
     always @(posedge clk) begin
 	// reset both the horizontal and vertical counter 
-        if (clear) begin
+        if (~clear) begin
             hcount <= 0;
             vcount <= 0;
         end else begin
